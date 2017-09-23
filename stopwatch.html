@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Stopwatch Demo</title>
+<link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body>
+
+<p class="lw">Stopwatch Demo</p>
+
+  <section id="timer">0</section> 
+
+<section>
+	<button onclick="startstop()">Start/Stop (S)</button>
+  <button onclick="reset()">Reset (R)</button>
+  <button onclick="record()">Record Time (T)</button>
+  <p><b>Past Times</b></p>
+
+  <section id="pasttime"></section>
+</section> 
+
+</body>
+
+<script type="text/javascript">
+	
+var timer=0;
+var interval;
+var running = false;// false=stop true=inicio
+
+
+var pasttime = document.getElementById('pasttime');
+var time = document.getElementById('timer')
+
+
+function start(){
+
+	interval=setInterval(
+		function(){
+			timer++;
+			time.innerHTML=timer/100;
+		},
+		10);
+  }
+
+function stop(){
+	running=false;
+	interval=clearInterval(interval);	
+ }
+
+function startstop() {
+
+  if(running === false) {
+    running= true;
+    start();
+
+  } else {
+	running=false;
+	stop();
+	}
+}//end if
+
+function reset(){
+  timer=0;
+  time.innerHTML='0';
+  pasttime.innerHTML = '';
+  status=false;
+  interval=clearInterval(interval);
+}
+
+function record(){
+  pasttime.innerHTML+='<br>';
+  pasttime.innerHTML+=timer/100;
+}
+
+//al presionar las teclas...
+
+document.addEventListener('keydown',function(event){
+
+	switch(event.keyCode){
+
+		case 82://82='r'
+		reset();
+		break;
+
+		case 83: // 83 = 's'
+		startstop();
+		break;
+
+		case 84: //84 ='t'
+		record();
+		break;
+	}
+});
+
+</script>
+</html>
